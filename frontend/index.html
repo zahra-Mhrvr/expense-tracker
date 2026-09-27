@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledger — expense tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-title">
+      <h1>Ledger</h1>
+      <p class="tagline">a plain record of where the money went</p>
+    </div>
+    <div class="month-picker">
+      <label for="month-input">Month</label>
+      <input type="month" id="month-input">
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-figure">
+      <span class="hero-label">Spent this month</span>
+      <span class="hero-number" id="total-spent">$0.00</span>
+    </div>
+    <div class="hero-sub">
+      <span id="entry-count">0</span> entries logged
+    </div>
+  </section>
+
+  <section class="entry-form-section">
+    <form id="entry-form" class="entry-form">
+      <div class="field field-description">
+        <label for="description">Description</label>
+        <input type="text" id="description" required placeholder="Coffee, rent, bus pass…">
+      </div>
+      <div class="field field-amount">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" required min="0.01" step="0.01" placeholder="0.00">
+      </div>
+      <div class="field field-category">
+        <label for="category">Category</label>
+        <select id="category"></select>
+      </div>
+      <div class="field field-date">
+        <label for="date">Date</label>
+        <input type="date" id="date" required>
+      </div>
+      <button type="submit" class="add-button">Add entry</button>
+    </form>
+    <p class="form-error" id="form-error"></p>
+  </section>
+
+  <section class="breakdown-section">
+    <h2>By category</h2>
+    <div id="breakdown" class="breakdown"></div>
+  </section>
+
+  <section class="ledger-section">
+    <h2>Entries</h2>
+    <div class="ledger" id="ledger">
+      <p class="empty-state" id="empty-state">No entries yet — add your first one above.</p>
+    </div>
+  </section>
+
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
