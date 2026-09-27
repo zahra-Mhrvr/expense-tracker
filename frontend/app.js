@@ -36,10 +36,12 @@ function formatDate(isoDate) {
   return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
+let ALL_CATEGORIES = [];
+
 async function loadCategories() {
   const res = await fetch(`${API}/categories`);
-  const categories = await res.json();
-  categorySelect.innerHTML = categories
+  ALL_CATEGORIES = await res.json();
+  categorySelect.innerHTML = ALL_CATEGORIES
     .map((c) => `<option value="${c}">${c}</option>`)
     .join("");
 }
@@ -97,9 +99,13 @@ function renderSummary(summary) {
   const maxTotal = Math.max(...summary.by_category.map((c) => c.total));
 
   breakdownEl.innerHTML = summary.by_category
-    .map((c, i) => {
+    .map((c) => {
       const widthPct = maxTotal > 0 ? (c.total / maxTotal) * 100 : 0;
-      const color = CATEGORY_COLORS[i % CATEGORY_COLORS.length];
+      // color by the category's fixed position in ALL_CATEGORIES, not its
+      // position in this sorted list — otherwise "Food" changes color
+      // every time some other category overtakes it in spending
+      const stableIndex = Math.max(ALL_CATEGORIES.indexOf(c.category), 0);
+      const color = CATEGORY_COLORS[stableIndex % CATEGORY_COLORS.length];
       return `
         <div class="breakdown-row">
           <div class="cat-name">${escapeHtml(c.category)}</div>
