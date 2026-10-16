@@ -28,7 +28,7 @@ plain fetch calls and DOM updates.
 ## Setup
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/zahra-Mhrvr/expense-tracker.git
 cd expense-tracker
 python3 -m venv venv
 source venv/bin/activate
